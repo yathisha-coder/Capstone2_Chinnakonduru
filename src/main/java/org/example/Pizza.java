@@ -9,10 +9,7 @@ public class Pizza extends MenuItem {
     private boolean stuffedCrust;
 
     //Lists to store pizza ingredients
-    private List<String> meats = new ArrayList<>();
-    private List<String> cheeses = new ArrayList<>();
-    private List<String> regularTopping = new ArrayList<>();
-    private List<String> sauces = new ArrayList<>();
+    private List<Topping> toppings = new ArrayList<>();
     //Constructor
     public Pizza(String name,PizzaSize size,CrustType crust,boolean stuffedCrust) {
         super(name);
@@ -21,29 +18,22 @@ public class Pizza extends MenuItem {
         this.stuffedCrust = stuffedCrust;
     }
     //Add Toppings methods
-    public void addMeat(String meat){
-        meats.add(meat);
-    }
-    public void addCheese(String cheese){
-        cheeses.add(cheese);
-    }
-    public void addRegularTopping(String topping){
-        regularTopping.add(topping);
-    }
-    public void addSauce(String sauce){
-        sauces.add(sauce);
+    public void addTopping(Topping topping){
+        toppings.add(topping);
     }
     @Override
     public double calculatePrice() {
-        double price = 0;
-        switch (size){
-            case PERSONAL -> price = 8.50;
-            case MEDIUM ->  price = 12.00;
-            case LARGE -> price = 16.50;
+        double total = size.getBasePrice();
+      //Stream adds all topping prices
+        total += toppings.stream()
+                .mapToDouble(topping ->
+                        topping.calculatePrice(size))
+                .sum();
+        //Stuffed crust extra cost
+        if(stuffedCrust){
+            total += 2.00;
         }
-        //Ternary Operator
-        String crustText = stuffedCrust ? "Yes" : "No";
-        return price;
+        return total;
     }
 
     @Override
