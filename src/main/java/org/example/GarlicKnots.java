@@ -1,18 +1,28 @@
 package org.example;
 
 public class GarlicKnots extends MenuItem {
-    public GarlicKnots(String name) {
-        super(name);
+    //property
+    private double price;
+    //Constructor
+    public GarlicKnots() {
+        super("GarlicKnots");
+        this.price = 1.50;
+    }
+    //Getter
+
+
+    public double getPrice() {
+        return price;
     }
 
     @Override
     public double calculatePrice() {
-        return 0;
+        return price;
     }
 
     @Override
     public String getReceiptText() {
         return "=====GARLIC KNOTS=====\\n" +
-                "Price: $1.50";
+                "Price: $%.2f".formatted(price);
     }
 }
