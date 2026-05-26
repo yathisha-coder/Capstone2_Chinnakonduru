@@ -11,12 +11,16 @@ public class Main {
         while (true){
             System.out.println("======HOME SCREEN=======");
             System.out.println("1. New Order");
+            System.out.println("2. View Receipts");
             System.out.println("0. Exit");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice){
                 case 1:
                     orderScreen(scanner);
                 break;
+                case  2:
+                    ReceiptManager.viewAllReceipts();
+                    break;
                 case 0:
                     System.out.println("Thank You for shopping! Please come again!");
                     return;
@@ -53,6 +57,7 @@ public class Main {
                     break;
                 case 4:
                     checkOut(scanner,order);
+                    ReceiptManager.saveReceipt(order);
                     System.out.println("You're Order successfully checkout");
                     break;
                 case 0:
@@ -188,6 +193,7 @@ public class Main {
         System.out.println("0. Cancel");
         int option = Integer.parseInt(scanner.nextLine());
         if(option==1){
+            ReceiptManager.saveReceipt(order);
             System.out.println("Order Confirmed!");
         }else {
             System.out.println("Order Cancelled.");
