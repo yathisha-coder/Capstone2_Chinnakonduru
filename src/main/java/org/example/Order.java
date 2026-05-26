@@ -1,5 +1,7 @@
 package org.example;
 
+import de.vandermeer.asciitable.AsciiTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,9 @@ public class Order {
             items.add(0,new GarlicKnots());
         }
     }
+    public boolean isEmpty(){
+        return items.isEmpty();
+    }
     //Total Calculated using spring
     public double calculateTotal(){
         return items.stream()
@@ -22,15 +27,22 @@ public class Order {
                 .sum();
     }
     //Receipt Method
-    public String getReceiptText(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n======ORDER======");
-        items.stream()
-                .map(MenuItem :: getReceiptText)
-                .forEach(sb::append);
-        sb.append("-----------------------------\n");
-        sb.append("TOTAL: $")
-                .append(String.format("%.2f", calculateTotal()));
-        return sb.toString();
+    public String getReceiptText() {
+        AsciiTable table = new AsciiTable();
+        // Top Border
+        table.addRule();
+        // Header
+        table.addRow("ITEM", "PRICE");
+        table.addRule();
+        // Add items
+        items.forEach(item -> {
+            table.addRow(item.getName(), "$" + String.format("%.2f", item.calculatePrice()));
+            table.addRule();
+        });
+        //TOTAL ONLY ONCE
+        table.addRow("TOTAL", "$" + String.format("%.2f", calculateTotal())
+        );
+        table.addRule();
+        return table.render();
     }
 }

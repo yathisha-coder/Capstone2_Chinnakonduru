@@ -11,7 +11,7 @@ public class Pizza extends MenuItem {
     //Lists to store pizza ingredients
     private List<Topping> toppings = new ArrayList<>();
     //Constructor
-    public Pizza(String name,PizzaSize size,CrustType crust,boolean stuffedCrust) {
+    public Pizza(String name,PizzaSize size,CrustType crust,boolean stuffedCrust){
         super(name);
         this.size = size;
         this.crust = crust;
@@ -38,13 +38,32 @@ public class Pizza extends MenuItem {
 
     @Override
     public String getReceiptText() {
-        return "======PIZZA======" +
-                "Name: " + name + "\\n" +
-                "Size: " + size + "\\n" +
-                "Crust: " + crust + "\\n" +
-                "Stuffed Crust: " +
-                (stuffedCrust ? "Yes" : "No") + "\\n" +
-                "Price: $" +
-                String.format("%.2f", calculatePrice()) + "\\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== PIZZA ======\n");
+        sb.append("Name: ")
+                .append(name)
+                .append("\n");
+        sb.append("Size: ")
+                .append(size)
+                .append("\n");
+        sb.append("Crust: ")
+                .append(crust)
+                .append("\n");
+        sb.append("Stuffed Crust: ")
+                .append(stuffedCrust ? "Yes" : "No")
+                .append("\n");
+        // TOPPINGS
+        if (!toppings.isEmpty()) {
+            sb.append("\nToppings:\n");
+            for (Topping topping : toppings) {
+                sb.append("- ")
+                        .append(topping.getName())
+                        .append("\n");
+            }
+        }
+        sb.append("\nPrice: $")
+                .append(String.format("%.2f",calculatePrice()))
+                .append("\n");
+        return sb.toString();
     }
 }
