@@ -7,12 +7,12 @@ public class Order {
     private List<MenuItem> items = new ArrayList<>();
     //Add normal item(pizza, drink)
     public void addItem(MenuItem item){
-         items.add(item);
+         items.add(0,item);
     }
     //Garlic Knots quantity
     public void addGarlicKnots(int quantity){
         for (int i = 0; i < quantity; i++){
-            items.add(new GarlicKnots());
+            items.add(0,new GarlicKnots());
         }
     }
     //Total Calculated using spring
