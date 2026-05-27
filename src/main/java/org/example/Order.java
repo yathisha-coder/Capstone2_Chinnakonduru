@@ -36,7 +36,7 @@ public class Order {
         table.addRule();
         // Add items
         items.forEach(item -> {
-            table.addRow(item.getName(), "$" + String.format("%.2f", item.calculatePrice()));
+            table.addRow(item.getReceiptText(), "$" + String.format("%.2f", item.calculatePrice()));
             table.addRule();
         });
         //TOTAL ONLY ONCE
