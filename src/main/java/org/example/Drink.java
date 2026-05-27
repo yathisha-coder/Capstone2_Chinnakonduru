@@ -22,11 +22,11 @@ public class Drink extends MenuItem {
 
     @Override
     public String getReceiptText() {
-        return "=====DRINK======\\n" +
-                "Flavor: " + flavor + "\\n" +
-                "Size: " + size + "\\n" +
+        return "=====DRINK======\n" +
+                "Flavor: " + flavor + "\n" +
+                "Size: " + size + "\n" +
                 "Price: $" +
                 String.format("%.2f", calculatePrice()) +
-                "\\n";
+                "\n";
     }
 }

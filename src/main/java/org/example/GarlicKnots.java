@@ -9,8 +9,6 @@ public class GarlicKnots extends MenuItem {
         this.price = 1.50;
     }
     //Getter
-
-
     public double getPrice() {
         return price;
     }
@@ -22,7 +20,7 @@ public class GarlicKnots extends MenuItem {
 
     @Override
     public String getReceiptText() {
-        return "=====GARLIC KNOTS=====\\n" +
+        return "=====GARLIC KNOTS=====\n" +
                 "Price: $%.2f".formatted(price);
     }
 }

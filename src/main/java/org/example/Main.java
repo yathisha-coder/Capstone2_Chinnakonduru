@@ -3,85 +3,93 @@ package org.example;
 import java.util.Scanner;
 
 public class Main {
+    public static final String RESET ="\u001B[0m";
+    public static final String GREEN ="\u001B[32m";
+    public static final String YELLOW ="\u001B[33m";
+    public static final String BLUE ="\u001B[34m";
+    public static final String PURPLE ="\u001B[35m";
+    public static final String PINK ="\u001B[95m";
+    public static final String RED = "\u001B[31m";
+    public static final String CYAN = "\u001B[36m";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         homeScreen(scanner);
     }
     public static void homeScreen(Scanner scanner){
         while (true){
-            System.out.println("======HOME SCREEN=======");
-            System.out.println("1. New Order");
-            System.out.println("2. View Receipts");
-            System.out.println("0. Exit");
+            System.out.println(YELLOW + "\n======WELCOME TO PIZZA WORLD=======\n\n" + RESET);
+            System.out.println(PINK + "======HOME SCREEN=======" +RESET);
+            System.out.println(GREEN + "1. New Order" +RESET);
+            System.out.println(GREEN + "0. Exit" + RESET);
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice){
                 case 1:
                     orderScreen(scanner);
                 break;
-                case  2:
-                    ReceiptManager.viewAllReceipts();
-                    break;
                 case 0:
-                    System.out.println("Thank You for shopping! Please come again!");
+                    System.out.println(YELLOW + "Thank You for shopping! Please come again!" + RESET);
                     return;
                 default:
-                    System.out.println("Invalid Option.");
+                    System.out.println(RED + "Invalid Option." + RESET);
             }
         }
     }
     public static void orderScreen(Scanner scanner){
         Order order = new Order();
         while (true){
-            System.out.println("=====ORDER SCREEN=====");
-            System.out.println("1. Add Custom Pizza");
-            System.out.println("2. Add Signature Pizza");
-            System.out.println("3. Add Drink");
-            System.out.println("4. Add Garlic Knots");
-            System.out.println("5. Checkout");
-            System.out.println("0. Cancel Order");
-            System.out.println("99. Exit");
+            System.out.println(BLUE + "=====ORDER SCREEN=====" + RESET);
+            System.out.println(PURPLE + "1. Add Custom Pizza" + RESET);
+            System.out.println(PURPLE + "2. Add Signature Pizza" + RESET);
+            System.out.println(PURPLE + "3. Add Drink" + RESET);
+            System.out.println(PURPLE + "4. Add Garlic Knots" + RESET);
+            System.out.println(PURPLE + "5. Checkout" + RESET);
+            System.out.println(PURPLE + "0. Cancel Order" + RESET);
+            System.out.println(PURPLE + "99. Exit" + RESET);
             int option = Integer.parseInt(scanner.nextLine());
             switch (option){
                 case 1:
                     order.addItem(addPizza(scanner));
-                    System.out.println("Custom Pizza Added!");
+                    System.out.println(PINK + "Custom Pizza Added!" + RESET );
                     break;
                 case 2:
                     Pizza signaturePizza = addSignaturePizza(scanner);
                     if(signaturePizza != null){
                         order.addItem(signaturePizza);
-                        System.out.println("Signature Pizza Added!");
+                        System.out.println(PURPLE + "Signature Pizza Added!" + RESET);
                     }
                     break;
                 case 3:
                     order.addItem(addDrink(scanner));
-                    System.out.println("Drink Added!");
+                    System.out.println(BLUE + "Drink Added!" + RESET);
                     break;
                 case 4:
-                    System.out.println("Enter Quantity: ");
+                    System.out.println(GREEN + "Enter Quantity: " + RESET);
                     int quantity = Integer.parseInt(scanner.nextLine());
                     order.addGarlicKnots(quantity);
-                    System.out.println("Garlic Knots Added!");
+                    System.out.println(PINK + "Garlic Knots Added!" + RESET);
                     break;
                 case 5:
                     checkOut(scanner,order);
-                    System.out.println("You're Order successfully checkout");
+                    System.out.println(YELLOW + "You're Order successfully checkout" + RESET);
+                    //Reset order
+                    order = new Order();
+                    System.out.println(CYAN + "New order started." + RESET);
                     break;
                 case 0:
-                    System.out.println("Order Cancelled.");
+                    System.out.println(YELLOW + "Order Cancelled." + RESET);
                     break;
                 case 99:
                     return;
                 default:
-                    System.out.println("Invalid Option");
+                    System.out.println(RED + "Invalid Option" + RESET);
             }
         }
     }
     public static Pizza addPizza(Scanner scanner) {
-        System.out.println("\nSelect Pizza Size");
-        System.out.println("1. PERSONAL");
-        System.out.println("2. MEDIUM");
-        System.out.println("3. LARGE");
+        System.out.println(GREEN + "\nSelect Pizza Size" + RESET);
+        System.out.println(BLUE + "1. PERSONAL" + RESET);
+        System.out.println(BLUE + "2. MEDIUM" + RESET);
+        System.out.println(BLUE + "3. LARGE" + RESET);
         int sizeOption = Integer.parseInt(scanner.nextLine());
         PizzaSize size;
         switch (sizeOption) {
@@ -96,11 +104,11 @@ public class Main {
         }
 
         //CRUST
-        System.out.println("\nSelect Crust Type");
-        System.out.println("1. THIN");
-        System.out.println("2. REGULAR");
-        System.out.println("3. THICK");
-        System.out.println("4. CAULIFLOWER");
+        System.out.println(YELLOW + "\nSelect Crust Type" + RESET);
+        System.out.println(PINK + "1. THIN" + RESET);
+        System.out.println(PINK + "2. REGULAR" + RESET);
+        System.out.println(PINK + "3. THICK" + RESET);
+        System.out.println(PINK + "4. CAULIFLOWER" + RESET);
         int crustOption = Integer.parseInt(scanner.nextLine());
         CrustType crustType;
         switch (crustOption) {
@@ -138,13 +146,13 @@ public class Main {
 
         //TOPPINGS
         while (true) {
-            System.out.println("\n===== TOPPINGS =====");
-            System.out.println("1. Pepperoni(MEAT)");
-            System.out.println("2. Sausage");
-            System.out.println("3. Mozzarella(CHEESE)");
-            System.out.println("4. Mushrooms(OTHER)");
-            System.out.println("5. Onion (OTHER)");
-            System.out.println("0. Done");
+            System.out.println(CYAN + "\n===== TOPPINGS =====" + RESET);
+            System.out.println(YELLOW + "1. Pepperoni(MEAT)" + RESET);
+            System.out.println(YELLOW + "2. Sausage" + RESET);
+            System.out.println(YELLOW + "3. Mozzarella(CHEESE)" + RESET);
+            System.out.println(YELLOW + "4. Mushrooms(OTHER)" + RESET);
+            System.out.println(YELLOW + "5. Onion (OTHER)" + RESET);
+            System.out.println(YELLOW + "0. Done" + RESET);
             int toppingOption = Integer.parseInt(scanner.nextLine());
             switch (toppingOption) {
                 case 1:
@@ -164,16 +172,16 @@ public class Main {
                 case 0:
                     break;
                 default:
-                    System.out.println("Invalid Option.");
+                    System.out.println(RED + "Invalid Option." + RESET);
             }
             return pizza;
         }
     }
     public static Drink addDrink(Scanner scanner){
-        System.out.println("\nSelect Drink Size");
-        System.out.println("1. SMALL");
-        System.out.println("2. MEDIUM");
-        System.out.println("3. LARGE");
+        System.out.println(CYAN + "\nSelect Drink Size" + RESET);
+        System.out.println(GREEN + "1. SMALL" + RESET);
+        System.out.println(GREEN + "2. MEDIUM" + RESET);
+        System.out.println(GREEN + "3. LARGE" + RESET);
         int sizeOption = Integer.parseInt(scanner.nextLine());
         DrinkSize size;
         switch (sizeOption){
@@ -186,7 +194,7 @@ public class Main {
             default:
                 size = DrinkSize.LARGE;
         }
-        System.out.println("Enter flavor:");
+        System.out.println(PURPLE + "Enter flavor:" + RESET);
         String flavor = scanner.nextLine();
         return new Drink("Drink", size, flavor);
     }
@@ -195,70 +203,78 @@ public class Main {
             System.out.println("Order cannot be empty.");
             return;
         }
+        System.out.println(YELLOW + "1.Confirm" + RESET);
+        System.out.println(YELLOW + "0. Cancel" + RESET);
+        int option = Integer.parseInt(scanner.nextLine());
+        if(option==1){
+            ReceiptManager.saveReceipt(order);
+            System.out.println(CYAN + "Order Confirmed!" + RESET);
+        }else {
+            System.out.println(PURPLE + "Order Cancelled." + RESET);
+        }
         System.out.println(order.getReceiptText());
         double total = order.calculateTotal();
         System.out.println("\nTOTAL: $" + String.format("%.2f",total));
         //Payment menu
-        System.out.println("\n=====PAYMENT=====");
-        System.out.println("1. Cash");
-        System.out.println("2. Card");
-        System.out.println("0. Cancel");
+        System.out.println(BLUE + "\n=====PAYMENT=====" + RESET);
+        System.out.println(YELLOW + "1. Cash" + RESET);
+        System.out.println(YELLOW + "2. Card" + RESET);
+        System.out.println(YELLOW + "0. Cancel" + RESET);
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice){
             //Cash
             case 1:
-               System.out.println("Enter Cash amount: ");
+               System.out.println(PINK + "Enter Cash amount: " + RESET);
                double cash = Double.parseDouble(scanner.nextLine());
                if(cash < total){
-                   System.out.println("Not Enough Cash");
+                   System.out.println(RED + "Not Enough Cash" + RESET);
                    return;
                }
                double change = cash - total;
                 System.out.println("Change: $" + String.format("%.2f",change));
                 ReceiptManager.saveReceipt(order);
-                System.out.println("Payment Successful!");
+                System.out.println(CYAN + "Payment Successful!" + RESET);
+                //Show the receipt
+                System.out.println(BLUE + "\n====YOUR RECEIPT====" + RESET);
+                System.out.println(order.getReceiptText());
                break;
                //Card
             case 2:
-                System.out.println("\n====CARD TYPE====");
-                System.out.println("1. Debit Card");
-                System.out.println("2. Credit Card");
+                System.out.println(YELLOW + "\n====CARD TYPE====" + RESET);
+                System.out.println(PINK + "1. Debit Card" + RESET);
+                System.out.println(PINK + "2. Credit Card" + RESET);
                 int cardOption = Integer.parseInt(scanner.nextLine());
                 //Debit card
                 if(cardOption ==1) {
-                    System.out.println("Enter Debit Card Number: ");
+                    System.out.println(BLUE + "Enter Debit Card Number: " + RESET);
                     String debitCard = scanner.nextLine();
-                    System.out.println("Enter PIN: ");
+                    System.out.println(PURPLE + "Enter PIN: " + RESET);
                     String pin = scanner.nextLine();
-                    System.out.println("Processing Card Payment....");
-                    System.out.println("Payment Successful!");
+                    System.out.println(CYAN + "Processing Card Payment...." + RESET);
+                    System.out.println(GREEN + "Payment Successful!" + RESET);
+                    //Shows the receipt
+                    System.out.println(YELLOW + "\n====YOUR RECEIPT====" + RESET);
+                    System.out.println(order.getReceiptText());
                 } else if(cardOption ==2) {
-                    System.out.println("Enter Credit Card Number:");
+                    System.out.println(BLUE + "Enter Credit Card Number:" + RESET);
                     String creditCard = scanner.nextLine();
-                    System.out.println("Processing Credit Payment.....");
-                    System.out.println("Payment Successful!");
+                    System.out.println(PINK + "Processing Credit Payment....." + RESET);
+                    System.out.println(PURPLE + "Payment Successful!" + RESET);
+                    //shows the receipt
+                    System.out.println(CYAN + "\n====YOUR RECEIPT====" + RESET);
+                    System.out.println(order.getReceiptText());
                 }else {
-                    System.out.println("Invalid Card Option");
+                    System.out.println(RED + "Invalid Card Option" + RESET);
                     return;
                 }
                 ReceiptManager.saveReceipt(order);
                 break;
         }
-        System.out.println("\n 1.Confirm");
-        System.out.println("0. Cancel");
-        int option = Integer.parseInt(scanner.nextLine());
-        if(option==1){
-            ReceiptManager.saveReceipt(order);
-            System.out.println("Order Confirmed!");
-        }else {
-            System.out.println("Order Cancelled.");
-        }
-
     }
     public static Pizza addSignaturePizza(Scanner scanner){
-        System.out.println("\n=====SIGNATURE PIZZA'S=====");
-        System.out.println("1. Margherita Pizza");
-        System.out.println("2. Veggie Pizza");
+        System.out.println(YELLOW + "\n=====SIGNATURE PIZZA'S=====" + RESET);
+        System.out.println(BLUE + "1. Margherita Pizza" + RESET);
+        System.out.println(BLUE + "2. Veggie Pizza" + RESET);
         int option = Integer.parseInt(scanner.nextLine());
         switch (option){
             case 1:
@@ -266,7 +282,7 @@ public class Main {
             case 2:
                 return new VeggiePizza();
             default:
-                System.out.println("Invalid Option");
+                System.out.println(RED + "Invalid Option" + RESET);
                 return null;
         }
     }
