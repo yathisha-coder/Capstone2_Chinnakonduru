@@ -222,6 +222,7 @@ public class Main {
         double total = order.calculateTotal();
         System.out.println("\nTOTAL: $" + String.format("%.2f",total));
         //Payment menu
+        while (true){
         System.out.println(BLUE + "\n=====PAYMENT=====" + RESET);
         System.out.println(YELLOW + "1. Cash" + RESET);
         System.out.println(YELLOW + "2. Card" + RESET);
@@ -275,6 +276,12 @@ public class Main {
                 }
                 ReceiptManager.saveReceipt(order);
                 break;
+            case 0:
+                System.out.println(RED + "Payment Cancelled." + RESET);
+                return;
+            default:
+                System.out.println("Invalid Option. Please entry again.");
+            }
         }
     }
     public static Pizza addSignaturePizza(Scanner scanner){
