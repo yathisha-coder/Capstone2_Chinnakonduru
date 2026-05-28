@@ -36,17 +36,17 @@ public class Topping {
                 }
                 if (extra) {
                     switch (size) {
-                        case PERSONAL -> price += 0.30;
-                        case MEDIUM -> price += 0.60;
-                        case LARGE -> price += 0.90;
+                        case PERSONAL -> price += 0.50;
+                        case MEDIUM -> price += 1.00;
+                        case LARGE -> price += 1.50;
                     }
                 }
             }
             case CHEESE -> {
                 switch (size){
                     case PERSONAL -> price = 0.75;
-                    case LARGE -> price = 1.50;
-                    case MEDIUM -> price = 2.25;
+                    case MEDIUM-> price = 1.50;
+                    case LARGE -> price = 2.25;
                 }
                 if(extra){
                     switch (size){
