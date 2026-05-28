@@ -59,7 +59,12 @@ public class Main {
                     }
                     break;
                 case 3:
-                    order.addItem(addDrink(scanner));
+                    System.out.println(CYAN + "How Many Drinks?" + RESET);
+                    int drinkQuantity = Integer.parseInt(scanner.nextLine());
+                    for (int i= 1; i <= drinkQuantity; i++) {
+                        System.out.println("\nDrink: " + i);
+                        order.addItem(addDrink(scanner));
+                    }
                     System.out.println(BLUE + "Drink Added!" + RESET);
                     break;
                 case 4:
@@ -169,8 +174,9 @@ public class Main {
                     break;
                 case 5:
                     pizza.addTopping(new Topping("Onion",ToppingType.REGULAR,true));
-                case 0:
                     break;
+                case 0:
+                    return pizza;
                 default:
                     System.out.println(RED + "Invalid Option." + RESET);
             }
