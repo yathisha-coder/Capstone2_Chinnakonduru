@@ -217,6 +217,7 @@ public class Main {
             System.out.println(CYAN + "Order Confirmed!" + RESET);
         }else {
             System.out.println(PURPLE + "Order Cancelled." + RESET);
+            return;
         }
         System.out.println(order.getReceiptText());
         double total = order.calculateTotal();
@@ -235,7 +236,7 @@ public class Main {
                double cash = Double.parseDouble(scanner.nextLine());
                if(cash < total){
                    System.out.println(RED + "Not Enough Cash" + RESET);
-                   return;
+                   break;
                }
                double change = cash - total;
                 System.out.println("Change: $" + String.format("%.2f",change));
@@ -244,7 +245,7 @@ public class Main {
                 //Show the receipt
                 System.out.println(BLUE + "\n====YOUR RECEIPT====" + RESET);
                 System.out.println(order.getReceiptText());
-               break;
+               return;
                //Card
             case 2:
                 System.out.println(YELLOW + "\n====CARD TYPE====" + RESET);
@@ -259,23 +260,20 @@ public class Main {
                     String pin = scanner.nextLine();
                     System.out.println(CYAN + "Processing Card Payment...." + RESET);
                     System.out.println(GREEN + "Payment Successful!" + RESET);
-                    //Shows the receipt
-                    System.out.println(YELLOW + "\n====YOUR RECEIPT====" + RESET);
-                    System.out.println(order.getReceiptText());
                 } else if(cardOption ==2) {
                     System.out.println(BLUE + "Enter Credit Card Number:" + RESET);
                     String creditCard = scanner.nextLine();
                     System.out.println(PINK + "Processing Credit Payment....." + RESET);
                     System.out.println(PURPLE + "Payment Successful!" + RESET);
-                    //shows the receipt
-                    System.out.println(CYAN + "\n====YOUR RECEIPT====" + RESET);
-                    System.out.println(order.getReceiptText());
                 }else {
                     System.out.println(RED + "Invalid Card Option" + RESET);
-                    return;
+                    break;
                 }
+                //shows the receipt
+                System.out.println(CYAN + "\n====YOUR RECEIPT====" + RESET);
+                System.out.println(order.getReceiptText());
                 ReceiptManager.saveReceipt(order);
-                break;
+                return;
             case 0:
                 System.out.println(RED + "Payment Cancelled." + RESET);
                 return;
